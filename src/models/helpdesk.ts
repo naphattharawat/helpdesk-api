@@ -8,6 +8,7 @@ export class HelpdeskModel {
       .join('status as s', 'h.status_id', 's.id')
       .join('users as u', 'u.id', 'h.create_id')
       .orderBy('h.status_id', order)
+      .orderBy('hi.d', 'desc')
       .limit(limit)
       .offset(offset);
   }
