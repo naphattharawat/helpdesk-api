@@ -27,7 +27,8 @@ router.post('/', async (req: Request, res: Response) => {
       let payload = {
         id: rs[0].id,
         fullname: `${rs[0].fname} ${rs[0].lname}`,
-        nickname: rs[0].nickname
+        nickname: rs[0].nickname,
+        isAdmin: rs[0].is_admin
       }
 
       let token = jwt.signApiKey(payload);

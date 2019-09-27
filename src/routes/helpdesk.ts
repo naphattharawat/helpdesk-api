@@ -17,18 +17,32 @@ router.get('/', async (req: Request, res: Response) => {
     const limit = +req.query.limit;
     const offset = +req.query.offset;
     const order = req.query.order;
-    const rs = await helpdeskModel.getlist(db, limit, offset, order);
-    const count = await helpdeskModel.getlistTotal(db);
+    const period = req.query.period;
+    const rs = await helpdeskModel.getlist(db, limit, offset, order, period);
+    const count = await helpdeskModel.getlistTotal(db, period);
     res.send({ ok: true, rows: rs, total: count[0].count });
   } catch (error) {
     res.send({ ok: false, error: error });
   }
 });
 
+
 router.get('/count', async (req: Request, res: Response) => {
   try {
     const db = req.db;
-    const rs = await helpdeskModel.getCount(db);
+    const period = req.query.period;
+    const rs = await helpdeskModel.getCount(db, period);
+    res.send({ ok: true, rows: rs });
+  } catch (error) {
+    res.send({ ok: false, error: error });
+  }
+});
+
+router.get('/count-user', async (req: Request, res: Response) => {
+  try {
+    const db = req.db;
+    const period = req.query.period;
+    const rs = await helpdeskModel.getCountUser(db, period);
     res.send({ ok: true, rows: rs });
   } catch (error) {
     res.send({ ok: false, error: error });
