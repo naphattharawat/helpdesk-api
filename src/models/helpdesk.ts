@@ -31,6 +31,7 @@ export class HelpdeskModel {
       .count('* as count')
       .select('status_id')
       .groupBy('status_id')
+      .whereNot('create_id', '4')
       .where('create_date', 'like', _period);
   }
 
@@ -58,6 +59,7 @@ export class HelpdeskModel {
       .join('users as u', 'h.create_id', 'u.id')
       .groupBy('h.create_id')
       .where('u.is_admin', 'N')
+      .whereNot('h.create_id', '4')
       .where('h.create_date', 'like', _period)
   }
 
